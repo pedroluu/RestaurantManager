@@ -5,44 +5,38 @@ class Dish {
     this.ingredients = "";
     this.image = "";
   }
+
+  getName() {
+    return this.name;
+  }
+  setName(name) {
+    this.name = name;
+  }
+
+  getDescription() {
+    return this.description;
+  }
+  setDescription(desc) {
+    this.description = desc;
+  }
+
+  getIngredients() {
+    return this.ingredients;
+  }
+  setIngredients(ingredients) {
+    this.ingredients = ingredients;
+  }
+
+  getImage() {
+    return this.image;
+  }
+
+  setImage(image) {
+    this.image = image;
+  }
+  toString() {
+    return `Category: ${this.name} , Description: ${this.description} ,  Ingredients: ${this.ingredients} , Image: ${this.image}`;
+  }
 }
 
-Object.defineProperty(this, "fullName", {
-  enumerable: true,
-  get() {
-    return this._name;
-  },
-  set(name) {
-    if (typeof name !== "string") throw new Error("Name must be a string");
-    else this.name = name;
-  },
-});
-
-Object.defineProperty(this, "description", {
-  enumerable: true,
-  get() {
-    return this.description;
-  },
-  set(description) {
-    this.description = description;
-  },
-});
-
-Object.defineProperty(this, "ingredients", {
-  enumerable: true,
-  get() {
-    return this.ingredients;
-  },
-  set(ingredients) {
-    this.ingredients = ingredients;
-  },
-});
-Object.defineProperty(this, "image", {
-  enumerable: true,
-  get() {
-    return this.image;
-  },
-  set(image) {
-    this.image = image;
-  },
-});
+export { Dish };

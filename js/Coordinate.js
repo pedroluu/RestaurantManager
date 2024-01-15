@@ -3,23 +3,23 @@ class Coordinate {
     this.latitude = latitude;
     this.longitude = longitude;
   }
+  getLatitude() {
+    return this.latitude;
+  }
+  setLatitude(latitude) {
+    this.latitude = latitude;
+  }
+  getLongitude() {
+    return this.longitude;
+  }
+  setLongitude(longitude) {
+    this.longitude = longitude;
+  }
+  toString() {
+    return `Coordinates: Latitude ${this.getLatitude()} Longitude ${
+      this.longitude
+    }`;
+  }
 }
 
-Object.defineProperty(this, "latitude", {
-  enumerable: true,
-  get() {
-    return this.latitude;
-  },
-  set(latitude) {
-    this.latitude = latitude;
-  },
-});
-Object.defineProperty(this, "longitude", {
-  enumerable: true,
-  get() {
-    return this.longitude;
-  },
-  set(longitude) {
-    this.longitude = longitude;
-  },
-});
+export { Coordinate };

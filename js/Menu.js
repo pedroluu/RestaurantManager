@@ -3,25 +3,23 @@ class Menu {
     this.name = name;
     this.description = "";
   }
+
+  getName() {
+    return this.name;
+  }
+  setName(name) {
+    this.name = name;
+  }
+
+  getDescription() {
+    return this.description;
+  }
+  setDescription(desc) {
+    this.description = desc;
+  }
+  toString() {
+    return `Category: ${this.name}` + " "`Description: ${this.description}`;
+  }
 }
 
-Object.defineProperty(this, "fullName", {
-  enumerable: true,
-  get() {
-    return this._name;
-  },
-  set(name) {
-    if (typeof name !== "string") throw new Error("Name must be a string");
-    else this.name = name;
-  },
-});
-
-Object.defineProperty(this, "description", {
-  enumerable: true,
-  get() {
-    return this.description;
-  },
-  set(description) {
-    this.description = description;
-  },
-});
+export { Menu };
