@@ -18,7 +18,7 @@ class Category {
     this.description = desc;
   }
   toString() {
-    return `Category: ${this.name}` + " "`Description: ${this.description}`;
+    return `Category: ${this.name}, Description: ${this.description}`;
   }
 }
 
