@@ -85,11 +85,29 @@ const RestaurantManager = (function () {
         }
         this.#dishes.set(dish.name, {
           Dish: dish,
-          allergens: [],
-          categories: [],
+          allergens: {},
+          categories: {}, // Cambiado de objeto literal a Map
         });
       }
       return this;
+    }
+
+    assignCategoryToDish(category, dish) {
+      if (category == null || dish == null) {
+        throw new Error("Category and Dish must not be null or undefined");
+      }
+
+      if (!this.#categories.has(category.getName())) {
+        this.#categories.set(category, new Category(category)); // Crear nueva categoría si no existe
+      }
+
+      if (!this.#dishes.has(dish.name)) {
+        throw new Error(`${dish.name} does not exist in the system`);
+      }
+
+      const dishEntry = this.#dishes.get(dish.name);
+      const categoryKey = String(category);
+      dishEntry.categories[categoryKey] = true; // O cualquier valor que desees
     }
   }
 
@@ -112,7 +130,7 @@ import { Menu } from "./Menu.js";
 import { Restaurant } from "./restaurant.js";
 
 function test() {
-  //   let d1 = new Dish("macarrones");
+  let d1 = new Dish("macarrones");
   //   let a1 = new Allergen("fruto seco");
   let c1 = new Category("entrante");
   let c2 = new Category("segundo");
@@ -123,10 +141,14 @@ function test() {
 
   const manager = RestaurantManager.getInstance("Manager");
   manager.addCategory(c2, c1);
+  manager.addDish(d1);
   let it = manager.getCategories();
   for (let r of it) {
     console.log(r.toString());
   }
+  manager.assignCategoryToDish(c1, d1);
+  manager.assignCategoryToDish(c2, d1);
+  console.log(manager);
 }
 
 test();
