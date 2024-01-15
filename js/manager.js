@@ -1,3 +1,11 @@
+import {
+  CategoryException,
+  MenuException,
+  AllergenException,
+  DishException,
+  RestaurantManagerException,
+} from "./exception.js";
+
 const RestaurantManager = (function () {
   let instantiated;
 
@@ -47,12 +55,16 @@ const RestaurantManager = (function () {
       for (const category of categories) {
         // Verificar si la categoría es una instancia válida de Category
         if (!(category instanceof Category)) {
-          throw new Error("Argument must be an instance of Category");
+          throw new CategoryException(
+            "Argument must be an instance of Category"
+          );
         }
 
         // Verificar si la categoría ya existe en el sistema
         if (this.#categories.has(category.name)) {
-          throw new Error(`${category.name} already exists in the system`);
+          throw new CategoryException(
+            `${category.name} already exists in the system`
+          );
         }
 
         // Agregar la categoría al sistema
@@ -64,19 +76,19 @@ const RestaurantManager = (function () {
     // Método para eliminar categorías del sistema
     removeCategory(...categories) {
       if (categories.length === 0) {
-        throw new Error("At least one category is required");
+        throw new CategoryException("At least one category is required");
       }
 
       categories.forEach((category) => {
         if (category == null) {
-          throw new Error("Category must not be null or undefined");
+          throw new CategoryException("Category must not be null or undefined");
         }
 
         const categoryName = String(category);
 
         // Verificar si la categoría existe antes de eliminarla
         if (!this.#categories.has(category.getName())) {
-          throw new Error(
+          throw new CategoryException(
             `${category.getName()} is either null or not registered`
           );
         }
@@ -100,12 +112,12 @@ const RestaurantManager = (function () {
       for (const menu of menus) {
         // Verificar si el menú es una instancia válida de Menu
         if (!(menu instanceof Menu)) {
-          throw new Error("Argument must be an instance of Menu");
+          throw new MenuException("Argument must be an instance of Menu");
         }
 
         // Verificar si el menú ya existe en el sistema
         if (this.#menus.has(menu.name)) {
-          throw new Error(`${menu.name} already exists in the system`);
+          throw new MenuException(`${menu.name} already exists in the system`);
         }
 
         // Agregar el menú al sistema
@@ -120,19 +132,21 @@ const RestaurantManager = (function () {
     // Método para eliminar menús del sistema
     removeMenu(...menus) {
       if (menus.length === 0) {
-        throw new Error("At least one menu is required");
+        throw new MenuException("At least one menu is required");
       }
 
       menus.forEach((menu) => {
         if (menu == null) {
-          throw new Error("Menu must not be null or undefined");
+          throw new MenuException("Menu must not be null or undefined");
         }
 
         const menuName = menu.getName();
 
         // Verificar si el menú existe antes de eliminarlo
         if (!this.#menus.has(menuName)) {
-          throw new Error(`${menuName} is either null or not registered`);
+          throw new MenuException(
+            `${menuName} is either null or not registered`
+          );
         }
 
         // Eliminar el menú
@@ -147,12 +161,16 @@ const RestaurantManager = (function () {
       for (const allergen of allergens) {
         // Verificar si el alérgeno es una instancia válida de Allergen
         if (!(allergen instanceof Allergen)) {
-          throw new Error("Argument must be an instance of Allergen");
+          throw new AllergenException(
+            "Argument must be an instance of Allergen"
+          );
         }
 
         // Verificar si el alérgeno ya existe en el sistema
         if (this.#allergens.has(allergen.name)) {
-          throw new Error(`${allergen.name} already exists in the system`);
+          throw new AllergenException(
+            `${allergen.name} already exists in the system`
+          );
         }
 
         // Agregar el alérgeno al sistema
@@ -164,19 +182,21 @@ const RestaurantManager = (function () {
     // Método para eliminar alérgenos del sistema
     removeAllergen(...allergens) {
       if (allergens.length === 0) {
-        throw new Error("At least one allergen is required");
+        throw new AllergenException("At least one allergen is required");
       }
 
       allergens.forEach((allergen) => {
         if (allergen == null) {
-          throw new Error("Allergen must not be null or undefined");
+          throw new AllergenException("Allergen must not be null or undefined");
         }
 
         const allergenName = allergen.getName();
 
         // Verificar si el alérgeno existe antes de eliminarlo
         if (!this.#allergens.has(allergenName)) {
-          throw new Error(`${allergenName} is either null or not registered`);
+          throw new AllergenException(
+            `${allergenName} is either null or not registered`
+          );
         }
 
         // Eliminar el alérgeno
@@ -191,12 +211,12 @@ const RestaurantManager = (function () {
       for (const dish of dishes) {
         // Verificar si el plato es una instancia válida de Dish
         if (!(dish instanceof Dish)) {
-          throw new Error("Argument must be an instance of Dish");
+          throw new DishException("Argument must be an instance of Dish");
         }
 
         // Verificar si el plato ya existe en el sistema
         if (this.#dishes.has(dish.name)) {
-          throw new Error(`${dish.name} already exists in the system`);
+          throw new Dish(`${dish.name} already exists in the system`);
         }
 
         // Agregar el plato al sistema
@@ -212,19 +232,21 @@ const RestaurantManager = (function () {
     // Método para eliminar platos del sistema
     removeDish(...dishes) {
       if (dishes.length === 0) {
-        throw new Error("At least one dish is required");
+        throw new DishException("At least one dish is required");
       }
 
       dishes.forEach((dish) => {
         if (dish == null) {
-          throw new Error("Dish must not be null or undefined");
+          throw new DishException("Dish must not be null or undefined");
         }
 
         const dishName = String(dish);
 
         // Verificar si el plato existe antes de eliminarlo
         if (!this.#dishes.has(dish.getName())) {
-          throw new Error(`${dish.getName()} is either null or not registered`);
+          throw new DishException(
+            `${dish.getName()} is either null or not registered`
+          );
         }
 
         // Eliminar el plato
@@ -246,11 +268,15 @@ const RestaurantManager = (function () {
       for (const rest of restaurants) {
         // Verificar si el argumento es una instancia de Restaurant
         if (!(rest instanceof Restaurant)) {
-          throw new Error("El argumento debe ser una instancia de Restaurant");
+          throw new RestaurantManagerException(
+            "El argumento debe ser una instancia de Restaurant"
+          );
         }
         // Verificar si el restaurante ya existe en el sistema
         if (this.#restaurants.has(rest.name)) {
-          throw new Error(`${rest.name} ya existe en el sistema`);
+          throw new RestaurantManagerException(
+            `${rest.name} ya existe en el sistema`
+          );
         }
         // Añadir el restaurante al sistema con un menú vacío
         this.#restaurants.set(rest.name, {
@@ -264,18 +290,24 @@ const RestaurantManager = (function () {
     // Método para eliminar restaurantes del sistema
     removeRestaurant(...restaurants) {
       if (restaurants.length === 0) {
-        throw new Error("Se requiere al menos un restaurante para eliminar");
+        throw new RestaurantManagerException(
+          "Se requiere al menos un restaurante para eliminar"
+        );
       }
 
       restaurants.forEach((restaurant) => {
         if (restaurant == null) {
-          throw new Error("El restaurante no debe ser nulo o indefinido");
+          throw new RestaurantManagerException(
+            "El restaurante no debe ser nulo o indefinido"
+          );
         }
 
         const restaurantName = restaurant.getName();
 
         if (!this.#restaurants.has(restaurantName)) {
-          throw new Error(`${restaurantName} es nulo o no está registrado`);
+          throw new RestaurantManagerException(
+            `${restaurantName} es nulo o no está registrado`
+          );
         }
 
         // Eliminar el restaurante del sistema
@@ -288,7 +320,7 @@ const RestaurantManager = (function () {
     // Método para asignar categoría a un plato
     assignCategoryToDish(...args) {
       if (args.length < 2) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "Se requieren al menos dos argumentos (categoría y plato)"
         );
       }
@@ -296,7 +328,7 @@ const RestaurantManager = (function () {
       const [category, ...dishes] = args;
 
       if (category == null || dishes.some((dish) => dish == null)) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "La categoría y todos los platos no deben ser nulos o indefinidos"
         );
       }
@@ -323,7 +355,7 @@ const RestaurantManager = (function () {
     // Método para asignar alérgeno a un plato
     assignAllergenToDish(...args) {
       if (args.length < 2) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "Se requieren al menos dos argumentos (alérgeno y plato)"
         );
       }
@@ -331,7 +363,7 @@ const RestaurantManager = (function () {
       const [allergen, ...dishes] = args;
 
       if (allergen == null || dishes.some((dish) => dish == null)) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "El alérgeno y todos los platos no deben ser nulos o indefinidos"
         );
       }
@@ -358,13 +390,15 @@ const RestaurantManager = (function () {
     // Método para asignar un plato a un menú
     assignDishToMenu(...args) {
       if (args.length < 2) {
-        throw new Error("Se requieren al menos dos argumentos (plato y menú)");
+        throw new RestaurantManagerException(
+          "Se requieren al menos dos argumentos (plato y menú)"
+        );
       }
 
       const [dish, ...menus] = args;
 
       if (dish == null || menus.some((menu) => menu == null)) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "El plato y todos los menús no deben ser nulos o indefinidos"
         );
       }
@@ -377,7 +411,7 @@ const RestaurantManager = (function () {
 
         const menuEntry = this.#menus.get(menu.name);
         if (!menuEntry) {
-          throw new Error(
+          throw new RestaurantManagerException(
             `No se encontró la entrada del menú para ${menu.getName()}`
           );
         }
@@ -396,7 +430,7 @@ const RestaurantManager = (function () {
     // Método para desasignar alérgeno de un plato
     deassignAllergenToDish(...args) {
       if (args.length < 2) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "Se requieren al menos dos argumentos (alérgeno y plato)"
         );
       }
@@ -404,18 +438,22 @@ const RestaurantManager = (function () {
       const [allergen, ...dishes] = args;
 
       if (allergen == null || dishes.some((dish) => dish == null)) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "El alérgeno y todos los platos no deben ser nulos o indefinidos"
         );
       }
 
       dishes.forEach((dish) => {
         if (!this.#allergens.has(allergen.getName())) {
-          throw new Error(`${allergen.getName()} es nulo o no está registrado`);
+          throw new RestaurantManagerException(
+            `${allergen.getName()} es nulo o no está registrado`
+          );
         }
 
         if (!this.#dishes.has(dish.name)) {
-          throw new Error(`${dish.name} es nulo o no está registrado`);
+          throw new RestaurantManagerException(
+            `${dish.name} es nulo o no está registrado`
+          );
         }
 
         const dishEntry = this.#dishes.get(dish.name);
@@ -433,7 +471,7 @@ const RestaurantManager = (function () {
     // Método para desasignar categoría de un plato
     deassignCategoryToDish(...args) {
       if (args.length < 2) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "Se requieren al menos dos argumentos (categoría y plato)"
         );
       }
@@ -441,18 +479,22 @@ const RestaurantManager = (function () {
       const [category, ...dishes] = args;
 
       if (category == null || dishes.some((dish) => dish == null)) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "La categoría y todos los platos no deben ser nulos o indefinidos"
         );
       }
 
       dishes.forEach((dish) => {
         if (!this.#categories.has(category.getName())) {
-          throw new Error(`${category.getName()} es nulo o no está registrado`);
+          throw new RestaurantManagerException(
+            `${category.getName()} es nulo o no está registrado`
+          );
         }
 
         if (!this.#dishes.has(dish.name)) {
-          throw new Error(`${dish.name} es nulo o no está registrado`);
+          throw new RestaurantManagerException(
+            `${dish.name} es nulo o no está registrado`
+          );
         }
 
         const dishEntry = this.#dishes.get(dish.name);
@@ -470,24 +512,30 @@ const RestaurantManager = (function () {
     // Método para desasignar plato de un menú
     deassignDishToMenu(...args) {
       if (args.length < 2) {
-        throw new Error("Se requieren al menos dos argumentos (menú y plato)");
+        throw new RestaurantManagerException(
+          "Se requieren al menos dos argumentos (menú y plato)"
+        );
       }
 
       const [menu, ...dishes] = args;
 
       if (menu == null || dishes.some((dish) => dish == null)) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "Menú y todos los platos no deben ser nulos o indefinidos"
         );
       }
 
       dishes.forEach((dish) => {
         if (!this.#menus.has(menu.getName())) {
-          throw new Error(`${menu.getName()} es nulo o no está registrado`);
+          throw new RestaurantManagerException(
+            `${menu.getName()} es nulo o no está registrado`
+          );
         }
 
         if (!this.#dishes.has(dish.name)) {
-          throw new Error(`${dish.name} es nulo o no está registrado`);
+          throw new RestaurantManagerException(
+            `${dish.name} es nulo o no está registrado`
+          );
         }
 
         const menuEntry = this.#menus.get(menu.getName());
@@ -505,7 +553,7 @@ const RestaurantManager = (function () {
     // Método para cambiar posiciones de platos en un menú
     changeDishesPositionsInMenu(menu, dish1, dish2) {
       if (menu == null || dish1 == null || dish2 == null) {
-        throw new Error(
+        throw new RestaurantManagerException(
           "Menú, Plato1 y Plato2 no deben ser nulos o indefinidos"
         );
       }
@@ -515,14 +563,16 @@ const RestaurantManager = (function () {
       const dish2Name = String(dish2);
 
       if (!this.#menus.has(menuName)) {
-        throw new Error(`${menuName} es nulo o no está registrado`);
+        throw new RestaurantManagerException(
+          `${menuName} es nulo o no está registrado`
+        );
       }
 
       if (
         !this.#dishes.has(dish1.getName()) ||
         !this.#dishes.has(dish2.getName())
       ) {
-        throw new Error(
+        throw new RestaurantManagerException(
           `${dish1Name} o ${dish2Name} es nulo o no está registrado`
         );
       }
@@ -535,7 +585,7 @@ const RestaurantManager = (function () {
         !menuEntry.dishes[dish1Name] ||
         !menuEntry.dishes[dish2Name]
       ) {
-        throw new Error(
+        throw new RestaurantManagerException(
           `${dish1Name} o ${dish2Name} no está asignado a ${menuName}`
         );
       }
@@ -559,13 +609,17 @@ const RestaurantManager = (function () {
 
     getDishesWithAllergen(allergen, sortingFunction) {
       if (allergen == null) {
-        throw new Error("Allergen must not be null or undefined");
+        throw new RestaurantManagerException(
+          "Allergen must not be null or undefined"
+        );
       }
 
       const allergenName = String(allergen);
 
       if (!this.#allergens.has(allergen.getName())) {
-        throw new Error(`${allergenName} is either null or not registered`);
+        throw new RestaurantManagerException(
+          `${allergenName} is either null or not registered`
+        );
       }
 
       // Obtener los nombres de los platos que tienen el alérgeno
@@ -588,13 +642,15 @@ const RestaurantManager = (function () {
 
     getDishesInCategory(category, sortingFunction) {
       if (category == null) {
-        throw new Error("Category must not be null or undefined");
+        throw new RestaurantManagerException(
+          "Category must not be null or undefined"
+        );
       }
 
       const categoryName = String(category);
 
       if (!this.#categories.has(category.getName())) {
-        throw new Error(
+        throw new RestaurantManagerException(
           `${category.getName()} is either null or not registered`
         );
       }
@@ -619,7 +675,9 @@ const RestaurantManager = (function () {
 
     findDishes(filterFunction, sortingFunction) {
       if (typeof filterFunction !== "function") {
-        throw new Error("Filter function must be a valid function");
+        throw new RestaurantManagerException(
+          "Filter function must be a valid function"
+        );
       }
 
       // Obtener los nombres de los platos que cumplen con el criterio de la función de filtro
@@ -737,6 +795,9 @@ function test() {
   let m2 = new Menu("menu desayuno");
   let r1 = new Restaurant("Las lomas");
 
+  r1.setLocation(245, 512);
+  console.log(r1.toString());
+
   const manager = RestaurantManager.getInstance("Manager");
   manager.addCategory(c2, c1);
   manager.addDish(d1, d2);
@@ -763,7 +824,6 @@ function test() {
   // manager.deassignDishToMenu(m1, d1);
   // manager.removeCategory(c2);
   // manager.removeMenu(m1);
-  // manager.removeDish(d1);
   console.log("Antes de cambiar posiciones:");
   console.log(manager);
   manager.changeDishesPositionsInMenu(m1, d1, d2);
@@ -797,6 +857,7 @@ function test() {
   }
 
   console.log(manager.createDish("macarrones"));
+  manager.removeDish(d1);
   console.log(manager);
 }
 

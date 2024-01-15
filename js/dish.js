@@ -1,5 +1,11 @@
+import { DishNameException } from "./exception.js";
+
 class Dish {
   constructor(name) {
+    if (!name || name.trim() === "") {
+      throw new DishNameException();
+    }
+
     this.name = name;
     this.description = "";
     this.ingredients = "";

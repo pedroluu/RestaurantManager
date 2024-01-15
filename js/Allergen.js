@@ -1,5 +1,10 @@
+import { AllergenNameException } from "./exception.js";
+
 class Allergen {
   constructor(name) {
+    if (!name || name.trim() === "") {
+      throw new AllergenNameException();
+    }
     this.name = name;
     this.description = "";
   }

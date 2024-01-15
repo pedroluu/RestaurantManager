@@ -1,5 +1,10 @@
+import { MenuNameException } from "./exception.js";
+
 class Menu {
   constructor(name) {
+    if (!name || name.trim() === "") {
+      throw new MenuNameException();
+    }
     this.name = name;
     this.description = "";
   }

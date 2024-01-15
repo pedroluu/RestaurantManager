@@ -1,5 +1,11 @@
+import { CoordinateValueException } from "./exception.js";
+
 class Coordinate {
   constructor(latitude, longitude) {
+    if (latitude === undefined || longitude === undefined) {
+      throw new CoordinateValueException("Latitude and Longitude");
+    }
+
     this.latitude = latitude;
     this.longitude = longitude;
   }

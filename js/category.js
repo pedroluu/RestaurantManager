@@ -1,5 +1,11 @@
+import { CategoryNameException } from "./exception.js";
+
 class Category {
   constructor(name) {
+    if (!name || name.trim() === "") {
+      throw new CategoryNameException();
+    }
+
     this.name = name;
     this.description = "";
   }
