@@ -35,7 +35,7 @@ class Dish {
     this.image = image;
   }
   toString() {
-    return `Category: ${this.name} , Description: ${this.description} ,  Ingredients: ${this.ingredients} , Image: ${this.image}`;
+    return `Name  : ${this.name} , Description: ${this.description} ,  Ingredients: ${this.ingredients} , Image: ${this.image}`;
   }
 }
 

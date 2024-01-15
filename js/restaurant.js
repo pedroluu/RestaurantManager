@@ -1,3 +1,5 @@
+import { Coordinate } from "./Coordinate.js";
+
 class Restaurant {
   constructor(name) {
     this.name = name;

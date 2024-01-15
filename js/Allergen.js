@@ -17,7 +17,7 @@ class Allergen {
     this.description = desc;
   }
   toString() {
-    return `Category: ${this.name}` + " "`Description: ${this.description}`;
+    return `Name: ${this.name} , Description: ${this.description}`;
   }
 }
 
